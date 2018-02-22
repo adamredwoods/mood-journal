@@ -8,15 +8,84 @@
       <form action="update" method="post">
          <div>
             <h1>How do you feel today?</h1>
-            {% for q in questions.feeling %}
-            <label class="radio-button">{{q}}
-               <input  type="radio" name="feeling" value={{q}}>
-            </label>
-            {% endfor %}
+            <div class="radio-button-div">
+               {% for q in questions.feeling %}
+               <label class="radio-button">{{q}}
+                  <input class="radio-button spacer-top" type="radio" name="feeling" value="{{q}}">
+               </label>
+               {% endfor %}
+            </div>
          </div>
+         <div class="spacer"></div>
+         <div>
+            <h1>What was the central cause for you being &quot;<span id="answer"></span>&quot;?</h1>
+            <div class="radio-button-div">
+               {% for key in triggers %}
+                  <div id="feeling{{forloop.counter0}}" class="radio-key-div-hide">
+                  {% for t in key %}
+                        <label class="radio-button2">{{t}}
+                           <input class="radio-button2 spacer-top" type="radio" name="feeling" value="{{t}}">
+                        </label>
+                  {% endfor %}
+
+                  </div>
+               {% endfor %}
+            </div>
+         </div>
+
+         <input type="button" value="Submit" class="feeling-submit pure-button pure-button-primary spacer-top">
 
       </form>
    </div>
 
 </div>
+<script>
+let c = document.querySelectorAll("label.radio-button");
+let answer = document.querySelector("#answer");
+
+//-- Oh django! you my life so complicated!
+let feelingList = [
+{% for i in questions.feeling %}
+   "{{i}}",
+{% endfor %}
+];
+
+c.forEach(function(e){
+   e.addEventListener("click",function(e){
+      //clear then add
+      c.forEach(function(f){f.className="radio-button"});
+      this.className += " radio-button-select";
+      answer.textContent = e.target.value;
+
+      //hide all, then show selected
+      let hidelist = document.querySelectorAll(".radio-key-div");
+      hidelist.forEach(function(f){f.className="radio-key-div-hide"});
+
+      let dd = feelingList.indexOf(e.target.value);
+      if (dd>=0) {
+         let d = document.querySelector("#feeling"+dd);
+
+         d.className = "radio-key-div";
+      }
+
+      //show submit button
+      let s = document.querySelector(".feeling-submit");
+      s.style.visibility = "visible";
+   })
+})
+
+let c2 = document.querySelectorAll("label.radio-button2");
+c2.forEach(function(e){
+   e.addEventListener("click",function(e){
+      //clear then add
+      c2.forEach(function(f){f.className="radio-button2"});
+      this.className += " radio-button-select";
+   })
+})
+
+function showSet(q) {
+   let out = "";
+
+}
+</script>
 {%endblock%}

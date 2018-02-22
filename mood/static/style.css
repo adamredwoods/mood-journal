@@ -1,0 +1,58 @@
+/* */
+body {
+   color: #aaa;
+   background-color: #404045;
+   font-family: 'Libre Franklin:200,400,700', sans-serif;
+   font-weight: 200;
+}
+
+.light {
+   color: #aaa;
+}
+
+.white {
+   color: #fff;
+}
+
+nav {
+   font-size: 1.4rem;
+   padding: 2.0rem;
+   color: #fff;
+}
+
+nav a{
+   color: #fff;
+   text-decoration: none;
+}
+
+nav a:hover{
+   text-decoration: underline;
+}
+
+.spacer-bottom {
+   margin-bottom: 2rem;
+}
+.spacer-top {
+   margin-top: 2rem;
+}
+
+.text-right {
+   text-align: right;
+}
+.text-center {
+   text-align: center;
+}
+
+h1 {
+   font-weight: 100;
+   font-family: 'Amatic SC', sans-serif;
+   font-size: 3.0rem;
+}
+
+
+.radio-button {
+   cursor: pointer;
+}
+.radio-button input:checked ~ .checkmark {
+  background-color: #2196F3;
+}

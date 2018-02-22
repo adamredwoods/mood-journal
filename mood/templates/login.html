@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{%block content%}
+
+<div class="pure-u-1-5">
+</div>
+<div class="pure-u-4-5">
+   <h1>Login</h1>
+</div>
+<div>
+   <form method="post" action="/login">
+
+      {% csrf_token %}
+      <div class="pure-form pure-g">
+         <div class="pure-u-1-5">
+         </div>
+         <div class="pure-u-1-5">
+            <div class="spacer-bottom">
+               <label >Username:</label>
+               <input type="text" name="username" class="">
+            </div>
+            <div class="spacer-bottom">
+               <label>Password:</label>
+               <input type="password" name="password" class="">
+            </div>
+
+            <div class="">
+               <input type="submit" value="submit" class="pure-button pure-button-primary">
+            </div>
+         </div>
+      </div>
+   </form>
+
+   <div class="pure-g">
+      <div class="pure-u-1-5">
+      </div>
+      <div class="spacer-top pure-u-3-5">
+         Or<br><br>
+         <a href="/signup">
+            <input type="submit" value="Create New Account" class="pure-button pure-button-secondary">
+         </a>
+      </div>
+   </div>
+</div>
+{%endblock%}

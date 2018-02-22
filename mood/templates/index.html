@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{%block content%}
+
+<div class="pure-g">
+   <div class="pure-u-1-5"></div>
+   <div class="pure-u-3-5">
+      <h3>Today is {{today}}</h3>
+      <form action="update" method="post">
+         <div>
+            <h1>How do you feel today?</h1>
+            {% for q in questions.feeling %}
+            <label class="radio-button">{{q}}
+               <input  type="radio" name="feeling" value={{q}}>
+            </label>
+            {% endfor %}
+         </div>
+
+      </form>
+   </div>
+
+</div>
+{%endblock%}

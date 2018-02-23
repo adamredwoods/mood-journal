@@ -14,16 +14,16 @@ questions = {
             "Specific event", "Accomplishment", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
         ],
         "Unhappy": [
-            "Specific event", "Life unbalance", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
+            "Specific event", "Life imbalance", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
         ],
         "Sad": [
-            "Specific event", "Life unbalance", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
+            "Specific event", "Life imbalance", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
         ],
         "Angry": [
             "Specific event", "Politics", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
         ],
         "Frustrated": [
-            "Specific event", "Life unbalance", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
+            "Specific event", "Life imbalance", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
         ]
     }
 

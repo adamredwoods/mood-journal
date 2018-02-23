@@ -91,3 +91,11 @@ h1 {
 .feeling-submit {
    visibility: hidden;
 }
+
+.feeling-journal {
+   visibility: hidden;
+}
+
+.feeling-journal textarea {
+   background-color: #706060;
+}

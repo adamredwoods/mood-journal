@@ -3,7 +3,10 @@ from django.contrib import auth
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import datetime
+import time
 from mood.question_settings import questions
+from .models import Feeling
+import json
 
 # Create your views here.
 
@@ -28,13 +31,38 @@ def index(request):
 
         })
 
-# def login(request):
-#     return render(request,"login.html")
 
+def create(request):
+    if request.user and request.user.is_authenticated:
+        time_s =0
+        if "time" in request.POST:
+            time_s =request.POST["time"]
+        else:
+            time_s = int(time.time() * 1000) ## time in seconds
 
-def update(request):
-    return redirect("timeline")
+        new_feeling = Feeling()
+        new_feeling.trigger = request.POST["trigger"]
+        new_feeling.feeling = request.POST["feeling"]
+        new_feeling.journal = request.POST["journal"]
+        new_feeling.date = time_s
+        new_feeling.user_id = request.user.id
+        new_feeling.save()
+
+        return redirect("timeline")
 
 
 def timeline(request):
-    return render(request, "timeline.html")
+    if not request.user or not request.user.is_authenticated:
+        print("not auth")
+        return redirect("login.html")
+
+    feeling_set = Feeling.objects.filter(user_id=request.user.id)
+    feeling_arr = []
+
+    ## sort by day, and remove duplicates (get most recent)
+    
+    for f in feeling_set:
+        print(f)
+        feeling_arr.append(f)
+
+    return render(request, "timeline.html", { "feeling_data": feeling_arr } )

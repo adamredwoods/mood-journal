@@ -26,4 +26,5 @@ urlpatterns = [
 
     path('signup', mood.auth.signup, name="signup"),
     path('timeline', views.timeline, name="timeline"),
+    path('create', views.create, name="create"),
 ]

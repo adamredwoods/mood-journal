@@ -5,9 +5,10 @@
    <div class="pure-u-1-5"></div>
    <div class="pure-u-3-5">
       <h3>Today is {{today}}</h3>
-      <form action="update" method="post">
+      <form action="create" method="POST" class="pure-form">
+         {% csrf_token %}
          <div>
-            <h1>How do you feel today?</h1>
+            <h1 class="white">How do you feel today?</h1>
             <div class="radio-button-div">
                {% for q in questions.feeling %}
                <label class="radio-button">{{q}}
@@ -18,13 +19,13 @@
          </div>
          <div class="spacer"></div>
          <div>
-            <h1>What was the central cause for you being &quot;<span id="answer"></span>&quot;?</h1>
+            <h1 class="white">What was the central cause for you being &quot;<span id="answer"></span>&quot;?</h1>
             <div class="radio-button-div">
                {% for key in triggers %}
                   <div id="feeling{{forloop.counter0}}" class="radio-key-div-hide">
                   {% for t in key %}
                         <label class="radio-button2">{{t}}
-                           <input class="radio-button2 spacer-top" type="radio" name="feeling" value="{{t}}">
+                           <input class="radio-button2 spacer-top" type="radio" name="trigger" value="{{t}}">
                         </label>
                   {% endfor %}
 
@@ -32,8 +33,12 @@
                {% endfor %}
             </div>
          </div>
-
-         <input type="button" value="Submit" class="feeling-submit pure-button pure-button-primary spacer-top">
+         <div class="spacer"></div>
+         <div class="feeling-journal pure-group">
+            <h1 class="white">Other thoughts:</h1>
+            <textarea class="pure-input-2-2" name="journal" rows="3" cols="90"></textarea>
+         </div>
+         <input type="submit" value="Submit" class="feeling-submit pure-button pure-button-primary spacer-top">
 
       </form>
    </div>
@@ -50,6 +55,7 @@ let feelingList = [
 {% endfor %}
 ];
 
+//-- add clicks and functionality to feeling tags
 c.forEach(function(e){
    e.addEventListener("click",function(e){
       //clear then add
@@ -57,7 +63,7 @@ c.forEach(function(e){
       this.className += " radio-button-select";
       answer.textContent = e.target.value;
 
-      //hide all, then show selected
+      //hide all, then show selected triggers
       let hidelist = document.querySelectorAll(".radio-key-div");
       hidelist.forEach(function(f){f.className="radio-key-div-hide"});
 
@@ -71,9 +77,12 @@ c.forEach(function(e){
       //show submit button
       let s = document.querySelector(".feeling-submit");
       s.style.visibility = "visible";
+      let s2 = document.querySelector(".feeling-journal");
+      s2.style.visibility = "visible";
    })
 })
 
+//add clicks to triggers
 let c2 = document.querySelectorAll("label.radio-button2");
 c2.forEach(function(e){
    e.addEventListener("click",function(e){
@@ -83,9 +92,6 @@ c2.forEach(function(e){
    })
 })
 
-function showSet(q) {
-   let out = "";
 
-}
 </script>
 {%endblock%}

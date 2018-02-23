@@ -22,10 +22,10 @@ def index(request):
 
     today = datetime.date.today()
     dayweek = datetime.date.weekday(today)
-
+    ##day_of_week[dayweek]+" "+
 
     return render(request,"index.html", {
-            "today": day_of_week[dayweek]+" "+str(today),
+            "today": str(today),
             "questions": questions,
             "triggers" : triggers,
 
@@ -36,7 +36,9 @@ def create(request):
     if request.user and request.user.is_authenticated:
         time_s =0
         if "time" in request.POST:
-            time_s =request.POST["time"]
+            time_input =request.POST["time"]
+            time_s = datetime.datetime.strptime(time_input, '%Y-%m-%d')
+            time_s = time_s.timestamp() * 1000
         else:
             time_s = int(time.time() * 1000) ## time in seconds
 
@@ -64,6 +66,5 @@ def timeline(request):
     for f in feeling_set:
         print(f)
         feeling_arr.append(f)
-
 
     return render(request, "timeline.html", { "feeling_data": feeling_arr, "feeling_axis": questions["feeling"] } )

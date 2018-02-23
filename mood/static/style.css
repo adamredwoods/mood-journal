@@ -99,3 +99,8 @@ h1 {
 .feeling-journal textarea {
    background-color: #706060;
 }
+
+.feeling-date {
+   background-color: #706060;
+   border: 0;
+}

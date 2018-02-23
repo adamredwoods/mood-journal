@@ -12,70 +12,74 @@
 <div class="pure-g">
    <div class="pure-u-1-5"></div>
    <div class="pure-u-3-5 timeline">
-      {% for f in feeling_data %}
-         <div>
-            {{f.feeling}}
-         </div>
 
-      {% endfor %}
    </div>
 </div>
 <div class="pure-g">
    <div class="pure-u-1-5"></div>
    <div class="pure-u-3-5 chart-wrapper">
-      <div class="chart-wrapper-scroll">
-         <canvas id="myChart" width="1400" height="400"></canvas>
+      <div class="chart-wrapper-scroll" id="tester">
       </div>
    </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var data = [12, 19, 3, 5, 2, 3,6,4,2,23,4,54,56,7,86,5,3,43,3,3,2,2,23,25,3];
+var data = [];
+
+dataX = [
+   {% for i in feeling_data %}
+      "{{i.date}}" ,
+   {% endfor %}
+   {% for i in feeling_axis %}
+      "0",
+   {% endfor %}
+]
+
+dataY = [
+   {% for i in feeling_data %}
+      "{{i.feeling}}" ,
+   {% endfor %}
+   {% for i in feeling_axis %}
+      "{{i}}",
+   {% endfor %}
+]
+
 
 //-- Oh django! you my life so complicated!
 let feelingList = [
-{% for i in feeling_axis %}
-   "{{i}}",
-{% endfor %}
+   {% for i in feeling_axis %}
+      "{{i}}",
+   {% endfor %}
 ];
 
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: feelingList,
-        datasets: [{
-            label: '# of Votes',
-            data: data,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
+var date = new Date(); // some mock date
+var date_ms = parseInt(date.getTime());
+// console.log(date_ms,data)
+
+var layout = {
+   yaxis: {fixedrange: true, range: [0,feelingList.length-1]},
+   xaxis: {fixedrange: false, scroll: true, scollZoom:false, type: 'date', range: [date_ms-86400000*7,date_ms+86400000]},
+	dragmode: "pan",
+   margin: {t: 0},
+   type: "bar",
+   paper_bgcolor: "rgb(200,200,210)",
+   plot_bgcolor: "rgb(200,200,210)",
+   margin: {l:70, r:40, t:40},
+
+}
+
+var trace1 = {
+   x: dataX,
+   y: dataY,
+   type: 'bar',
+   width: 20000000
+}
+
+TESTER = document.getElementById("tester");
+	Plotly.newPlot( TESTER, [trace1],
+   layout,
+   {displayModeBar: false},
+);
 </script>
 {%endblock%}

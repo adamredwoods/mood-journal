@@ -1,7 +1,7 @@
 
 questions = {
     "feeling": [
-        "Happy", "Content", "Could be better", "Unhappy", "Sad", "Angry", "Frustrated"
+        "Unhappy", "Sad", "Angry", "Frustrated", "Could be better", "Content", "Happy"  
     ],
     "trigger": {
         "Happy": [

@@ -41,6 +41,9 @@ nav a:hover{
    height: 2rem;
    width: 2rem;
 }
+.spacer-right {
+   margin-right: 1rem;
+}
 
 .text-right {
    text-align: right;
@@ -103,4 +106,12 @@ h1 {
 .feeling-date {
    background-color: #706060;
    border: 0;
+}
+
+.clickset input {
+   background-color: #706060;
+}
+
+.clickset textarea {
+   background-color: #706060;
 }

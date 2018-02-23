@@ -37,6 +37,7 @@ dataX = [
 ]
 
 dataY = [
+
    {% for i in feeling_data %}
       "{{i.feeling}}" ,
    {% endfor %}
@@ -62,7 +63,8 @@ var layout = {
    xaxis: {fixedrange: false, scroll: true, scollZoom:false, type: 'date', range: [date_ms-86400000*7,date_ms+86400000]},
 	dragmode: "pan",
    margin: {t: 0},
-   type: "bar",
+   type: "scatter",
+   mode: "markers",
    paper_bgcolor: "rgb(200,200,210)",
    plot_bgcolor: "rgb(200,200,210)",
    margin: {l:70, r:40, t:40},
@@ -72,8 +74,10 @@ var layout = {
 var trace1 = {
    x: dataX,
    y: dataY,
-   type: 'bar',
-   width: 20000000
+   type: 'scatter',
+   width: 20000000,
+   marker: {"color": "#5080a0", "size": 22},
+   mode: "markers"
 }
 
 TESTER = document.getElementById("tester");

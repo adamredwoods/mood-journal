@@ -78,8 +78,9 @@ def edit_all(request):
     feeling_arr = []
 
     ## sort by day, and remove duplicates (get most recent)
-
+    feeling_set = sorted(feeling_set, key=lambda feel: feel.date, reverse=True)
     for f in feeling_set:
+        f.date = datetime.date.fromtimestamp(f.date/1000.0)
         feeling_arr.append(f)
 
     return render(request, "edit_all.html", { "feeling_data": feeling_arr, "questions": questions, "triggers" : triggers, } )

@@ -1,3 +1,24 @@
 .timeline {
    background-color: #b0a0a0;
 }
+
+.chart-wrapper {
+  width: 1200px;
+  overflow-x: scroll;
+}
+
+.chart-wrapper-scroll {
+  width: 1200px;
+  position: relative;
+}
+
+.chart-wrapper > canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+#myChart {
+   width: 1200px;
+}

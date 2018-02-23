@@ -60,9 +60,10 @@ def timeline(request):
     feeling_arr = []
 
     ## sort by day, and remove duplicates (get most recent)
-    
+
     for f in feeling_set:
         print(f)
         feeling_arr.append(f)
 
-    return render(request, "timeline.html", { "feeling_data": feeling_arr } )
+
+    return render(request, "timeline.html", { "feeling_data": feeling_arr, "feeling_axis": questions["feeling"] } )

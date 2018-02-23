@@ -64,7 +64,22 @@ def timeline(request):
     ## sort by day, and remove duplicates (get most recent)
 
     for f in feeling_set:
-        print(f)
         feeling_arr.append(f)
 
     return render(request, "timeline.html", { "feeling_data": feeling_arr, "feeling_axis": questions["feeling"] } )
+
+
+def edit_all(request):
+    if not request.user or not request.user.is_authenticated:
+        print("not auth")
+        return redirect("login.html")
+
+    feeling_set = Feeling.objects.filter(user_id=request.user.id)
+    feeling_arr = []
+
+    ## sort by day, and remove duplicates (get most recent)
+
+    for f in feeling_set:
+        feeling_arr.append(f)
+
+    return render(request, "edit_all.html", { "feeling_data": feeling_arr, "questions": questions, "triggers" : triggers, } )

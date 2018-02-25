@@ -11,9 +11,13 @@ import json
 # Create your views here.
 
 day_of_week = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-triggers = []
-for i in questions['trigger']:
-    triggers.append(questions['trigger'][i])
+triggers_ordered = []
+
+##align the array of trigger responses to the array of feelings
+##doing this because django templating really doesn't do well with arrays in dicts 
+for i,f in enumerate(questions['feeling']):
+    triggers_ordered.append(questions['trigger'].get(f))
+print(triggers_ordered)
 
 def index(request):
     if not request.user or not request.user.is_authenticated:
@@ -27,8 +31,7 @@ def index(request):
     return render(request,"index.html", {
             "today": str(today),
             "questions": questions,
-            "triggers" : triggers,
-
+            "triggers_ordered" : triggers_ordered,
         })
 
 
@@ -83,4 +86,4 @@ def edit_all(request):
         f.date = datetime.date.fromtimestamp(f.date/1000.0)
         feeling_arr.append(f)
 
-    return render(request, "edit_all.html", { "feeling_data": feeling_arr, "questions": questions, "triggers" : triggers, } )
+    return render(request, "edit_all.html", { "feeling_data": feeling_arr, "questions": questions, "triggers_ordered" : triggers_ordered, } )

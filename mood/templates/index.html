@@ -24,7 +24,7 @@
          <div>
             <h1 class="white">What was the central cause for you being &quot;<span id="answer"></span>&quot;?</h1>
             <div class="radio-button-div">
-               {% for key in triggers %}
+               {% for key in triggers_ordered %}
                   <div id="feeling{{forloop.counter0}}" class="radio-key-div-hide">
                   {% for t in key %}
                         <label class="radio-button2">{{t}}

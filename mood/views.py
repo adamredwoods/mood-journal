@@ -70,7 +70,7 @@ def timeline(request):
     #feelings_json = json.dumps(feeling_set, cls=DjangoJSONEncoder)
     feelings_json = serializers.serialize("json", feeling_set)
 
-    return render(request, "timeline.html", { "feeling_axis": questions['feeling']} )
+    return render(request, "timeline.html", { "feeling_axis": questions['feeling'], "feeling_color": questions['feeling_color']} )
 
 ## use this to send the timeline data to the client
 ## TODO: get data for only the current year

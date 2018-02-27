@@ -3,6 +3,9 @@ questions = {
     "feeling": [
         "Unhappy", "Sad", "Angry", "Frustrated", "Could be better", "Content", "Happy"
     ],
+    "feeling_color": [
+        "#a0b0f0", "#b0b0f0", "#c0b0f0", "#c0c0f0", "#d0b0c0", "#e0e0c0", "#f0f090"
+    ],
     "trigger": {
         "Happy": [
             "Specific event", "Accomplishment", "Goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
@@ -26,5 +29,5 @@ questions = {
             "Specific event", "Life imbalance", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
         ]
     }
-    
+
 }

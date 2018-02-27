@@ -7,6 +7,9 @@ import time
 from mood.question_settings import questions
 from .models import Feeling
 import json
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core import serializers
+
 
 # Create your views here.
 
@@ -14,7 +17,7 @@ day_of_week = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Su
 triggers_ordered = []
 
 ##align the array of trigger responses to the array of feelings
-##doing this because django templating really doesn't do well with arrays in dicts 
+##doing this because django templating really doesn't do well with arrays in dicts
 for i,f in enumerate(questions['feeling']):
     triggers_ordered.append(questions['trigger'].get(f))
 print(triggers_ordered)
@@ -66,10 +69,22 @@ def timeline(request):
 
     ## sort by day, and remove duplicates (get most recent)
 
-    for f in feeling_set:
-        feeling_arr.append(f)
+    # for f in feeling_set:
+    #     feeling_arr.append(f)
 
-    return render(request, "timeline.html", { "feeling_data": feeling_arr, "feeling_axis": questions["feeling"] } )
+
+    #feelings_json = json.dumps(feeling_set, cls=DjangoJSONEncoder)
+    feelings_json = serializers.serialize("json", feeling_set)
+
+    return render(request, "timeline.html", { "feeling_axis": questions['feeling']} )
+
+def timeline_data(request):
+    if request.user and request.user.is_authenticated:
+
+        feeling_set = Feeling.objects.filter(user_id=request.user.id)
+        feelings_json = serializers.serialize("json", feeling_set)
+        return HttpResponse(feelings_json, content_type='application/json')
+
 
 
 def edit_all(request):

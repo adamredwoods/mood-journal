@@ -25,65 +25,60 @@
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
-var data = [];
 
-dataX = [
-   {% for i in feeling_data %}
-      "{{i.date}}" ,
-   {% endfor %}
-   {% for i in feeling_axis %}
-      "0",
-   {% endfor %}
-]
+//make our call to the server, then setup the plot
+ajax({
+   method: "get",
+   url: "/timeline/data"
+}).then(function(resp) {
+   feeling_data = resp;
+   setupPlot(feeling_data);
+})
 
-dataY = [
+function setupPlot(data) {
+   dataX = [];
+   dataY = [];
+   data.forEach(function(i){dataX.push(i.fields.date); dataY.push(i.fields.feeling);});
 
-   {% for i in feeling_data %}
-      "{{i.feeling}}" ,
-   {% endfor %}
-   {% for i in feeling_axis %}
-      "{{i}}",
-   {% endfor %}
-]
+   //-- making the feelings list available to javascript
+   let feelingList = [
+      {% for i in feeling_axis %}
+         "{{i}}",
+      {% endfor %}
+   ];
 
+   var date = new Date(); // some mock date
+   var date_ms = parseInt(date.getTime());
+   // console.log(date_ms,data)
 
-//-- Oh django! you my life so complicated!
-let feelingList = [
-   {% for i in feeling_axis %}
-      "{{i}}",
-   {% endfor %}
-];
+   var layout = {
+      yaxis: {fixedrange: true, range: [0,feelingList.length-1]},
+      xaxis: {fixedrange: false, scroll: true, scollZoom:false, type: 'date', range: [date_ms-86400000*7,date_ms+86400000]},
+   	dragmode: "pan",
+      margin: {t: 0},
+      type: "scatter",
+      mode: "markers",
+      paper_bgcolor: "rgb(150,150,160)",
+      plot_bgcolor: "rgb(150,150,160)",
+      margin: {l:70, r:40, t:40},
 
-var date = new Date(); // some mock date
-var date_ms = parseInt(date.getTime());
-// console.log(date_ms,data)
+   }
 
-var layout = {
-   yaxis: {fixedrange: true, range: [0,feelingList.length-1]},
-   xaxis: {fixedrange: false, scroll: true, scollZoom:false, type: 'date', range: [date_ms-86400000*7,date_ms+86400000]},
-	dragmode: "pan",
-   margin: {t: 0},
-   type: "scatter",
-   mode: "markers",
-   paper_bgcolor: "rgb(200,200,210)",
-   plot_bgcolor: "rgb(200,200,210)",
-   margin: {l:70, r:40, t:40},
+   var trace1 = {
+      x: dataX,
+      y: dataY,
+      type: 'scatter',
+      width: 20000000,
+      marker: {"color": "#a0b0f0", "size": 22},
+      mode: "markers"
+   }
 
+   TESTER = document.getElementById("tester");
+   	Plotly.newPlot( TESTER, [trace1],
+      layout,
+      {displayModeBar: false},
+   );
 }
 
-var trace1 = {
-   x: dataX,
-   y: dataY,
-   type: 'scatter',
-   width: 20000000,
-   marker: {"color": "#5080a0", "size": 22},
-   mode: "markers"
-}
-
-TESTER = document.getElementById("tester");
-	Plotly.newPlot( TESTER, [trace1],
-   layout,
-   {displayModeBar: false},
-);
 </script>
 {%endblock%}

@@ -67,17 +67,13 @@ def timeline(request):
     feeling_set = Feeling.objects.filter(user_id=request.user.id)
     feeling_arr = []
 
-    ## sort by day, and remove duplicates (get most recent)
-
-    # for f in feeling_set:
-    #     feeling_arr.append(f)
-
-
     #feelings_json = json.dumps(feeling_set, cls=DjangoJSONEncoder)
     feelings_json = serializers.serialize("json", feeling_set)
 
     return render(request, "timeline.html", { "feeling_axis": questions['feeling']} )
 
+## use this to send the timeline data to the client
+## TODO: get data for only the current year
 def timeline_data(request):
     if request.user and request.user.is_authenticated:
 

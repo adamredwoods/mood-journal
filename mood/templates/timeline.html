@@ -36,16 +36,39 @@ ajax({
 })
 
 function setupPlot(data) {
-   dataX = [];
-   dataY = [];
-   data.forEach(function(i){dataX.push(i.fields.date); dataY.push(i.fields.feeling);});
+   var trace = [];
+   var trace_key = {};
 
    //-- making the feelings list available to javascript
+   //-- also populate our chart with this to display them all
    let feelingList = [
       {% for i in feeling_axis %}
          "{{i}}",
       {% endfor %}
    ];
+
+   //-- divide up our traces by feeling
+   let j=0;
+   feelingList.forEach(function(i){
+      trace.push({
+         x:[],
+         y:[],
+         type: 'scatter',
+         marker: {"color": "#a0b0f0", "size": 22},
+         mode: "markers"
+      });
+      trace_key[i] = j;
+      j++;
+   });
+
+   data.forEach(
+      function(i){
+         trace[trace_key[i.fields.feeling]].x.push(i.fields.date);
+         trace[trace_key[i.fields.feeling]].y.push(i.fields.feeling);
+      }
+   );
+
+console.log(trace);
 
    var date = new Date(); // some mock date
    var date_ms = parseInt(date.getTime());
@@ -64,17 +87,16 @@ function setupPlot(data) {
 
    }
 
-   var trace1 = {
-      x: dataX,
-      y: dataY,
-      type: 'scatter',
-      width: 20000000,
-      marker: {"color": "#a0b0f0", "size": 22},
-      mode: "markers"
-   }
+   // var trace1 = {
+   //    x: [],
+   //    y: [],
+   //    type: 'scatter',
+   //    marker: {"color": "#a0b0f0", "size": 22},
+   //    mode: "markers"
+   // }
 
    TESTER = document.getElementById("tester");
-   	Plotly.newPlot( TESTER, [trace1],
+   	Plotly.newPlot( TESTER, trace,
       layout,
       {displayModeBar: false},
    );

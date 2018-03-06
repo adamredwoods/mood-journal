@@ -138,15 +138,19 @@ h1 {
    -moz-box-sizing: border-box;
    box-sizing: border-box;
    max-width: 100%;
-   width: 100%;
+   width: 90%;
 }
 
-.editall-form h3 {
-   margin: 0;
+.editall-form h3, h5 {
+   margin: 2px 0 2px 0;
+}
+
+.editall-form h5 {
+   color: #807070;
 }
 
 .timeline-label {
-   font-size: 1.0rem;
+   font-size: 1.3rem;
    color: #807070;
 }
 

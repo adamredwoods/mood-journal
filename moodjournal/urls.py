@@ -23,11 +23,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('login/', mood.auth.login, name="login"),
+    path('logout/', mood.auth.logout, name="logout"),
 
     path('signup/', mood.auth.signup, name="signup"),
     path('timeline/', views.timeline, name="timeline"),
     path('timeline/data/', views.timeline_data, name="timeline_data"),
-    path('timeline/data/<int:date>', views.timeline_data_date, name="timeline_data_date"),
+    path('timeline/data/<int:date>/', views.timeline_data_date, name="timeline_data_date"),
     path('create/', views.create, name="create"),
     path('edit/', views.edit_all, name="edit"),
 ]

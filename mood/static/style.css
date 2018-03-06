@@ -144,3 +144,12 @@ h1 {
 .editall-form h3 {
    margin: 0;
 }
+
+.timeline-label {
+   font-size: 1.0rem;
+   color: #807070;
+}
+
+.timeline-data {
+   color: #f0f0f0;
+}

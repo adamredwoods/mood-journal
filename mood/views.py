@@ -25,7 +25,7 @@ print(triggers_ordered)
 def index(request):
     if not request.user or not request.user.is_authenticated:
         print("not auth")
-        return redirect("login.html")
+        return redirect("login")
 
     today = datetime.date.today()
     dayweek = datetime.date.weekday(today)
@@ -62,10 +62,9 @@ def create(request):
 def timeline(request):
     if not request.user or not request.user.is_authenticated:
         print("not auth")
-        return redirect("login.html")
+        return redirect("login")
 
     feeling_set = Feeling.objects.filter(user_id=request.user.id)
-    feeling_arr = []
 
     #feelings_json = json.dumps(feeling_set, cls=DjangoJSONEncoder)
     feelings_json = serializers.serialize("json", feeling_set)
@@ -86,7 +85,7 @@ def timeline_data(request):
 def edit_all(request):
     if not request.user or not request.user.is_authenticated:
         print("not auth")
-        return redirect("login.html")
+        return redirect("login")
 
     feeling_set = Feeling.objects.filter(user_id=request.user.id)
     feeling_arr = []

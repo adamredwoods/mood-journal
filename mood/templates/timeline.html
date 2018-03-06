@@ -1,30 +1,30 @@
 {% extends 'base.html' %}
 
 {%block content%}
-
 <div class="pure-g">
-   <div class="pure-u-1-5"></div>
-   <div class="pure-u-3-5">
+   <div class="pure-u-1 pure-u-md-1-5"></div>
+   <div class="pure-u-1 pure-u-md-3-5">
       <h1>Timeline</h1>
    </div>
-
 </div>
 <div class="pure-g">
-   <div class="pure-u-1-5"></div>
-   <div class="pure-u-3-5 timeline">
-
-   </div>
-</div>
-<div class="pure-g">
-   <div class="pure-u-1-5"></div>
-   <div class="pure-u-3-5 chart-wrapper">
+   <div class="pure-u-1 pure-u-md-1-5"></div>
+   <div class="pure-u-1 pure-u-md-3-5">
       <div class="chart-wrapper-scroll" id="plotter">
       </div>
    </div>
+   <div class="pure-u-1 pure-u-md-1-5"></div>
+</div>
+<div class="pure-g">
+   <div class="pure-u-1 pure-u-sm-1-5"></div>
+   <div class="pure-u-1 pure-u-sm-3-5"></div>
+   <div class="pure-u-1 pure-u-sm-1-5"></div>
 </div>
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
+
+const MS_IN_DAY = 86400000;
 
 //make our call to the server, then setup the plot
 ajax({
@@ -74,21 +74,22 @@ function setupPlot(data) {
          trace[trace_key[i.fields.feeling]].name="";
       }
    );
-
+console.log(trace);
 
    var date = new Date();
    var date_ms = parseInt(date.getTime());
 
    var layout = {
       yaxis: {fixedrange: true, range: [0,feelingList.length-1]},
-      xaxis: {fixedrange: false, scroll: true, scollZoom:false, type: 'date', range: [date_ms-86400000*7,date_ms+86400000]},
+      xaxis: {fixedrange: false, scroll: true, scollZoom:false, type: 'date', range: [date_ms-MS_IN_DAY*10,date_ms+MS_IN_DAY], dtick:100000000},
    	dragmode: "pan",
-      margin: {t: 0},
       type: "scatter",
       mode: "markers",
       paper_bgcolor: "rgb(150,150,160)",
       plot_bgcolor: "rgb(150,150,160)",
-      margin: {l:70, r:40, t:40},
+      margin: {l:80, r:40, t:40},
+      autosize: true,
+      hovermode: 'closest',
 
    }
 
@@ -100,11 +101,18 @@ function setupPlot(data) {
    //    mode: "markers"
    // }
 
+   // {displayModeBar: true},
    PLOTTER = document.getElementById("plotter");
    	Plotly.newPlot( PLOTTER, trace,
       layout,
-      {displayModeBar: false},
+
    );
+
+   PLOTTER.on('plotly_click', function(data){
+      data.points.map(function(d){
+         console.log(d.x, d.y);
+      })
+   })
 }
 
 </script>

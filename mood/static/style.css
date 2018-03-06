@@ -4,6 +4,7 @@ body {
    background-color: #585052;
    font-family: 'Libre Franklin:200,400,700', sans-serif;
    font-weight: 200;
+
 }
 
 .light {
@@ -25,10 +26,16 @@ nav {
 nav a{
    color: #fff;
    text-decoration: none;
+
+   line-height: 4rem;
 }
 
 nav a:hover{
    text-decoration: underline;
+}
+
+footer {
+   margin: 2rem;
 }
 
 .spacer-bottom {
@@ -101,6 +108,11 @@ h1 {
 
 .feeling-journal textarea {
    background-color: #706060;
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+   max-width: 100%;
+   width: 100%;
 }
 
 .feeling-date {

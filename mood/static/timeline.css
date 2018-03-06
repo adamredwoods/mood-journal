@@ -2,13 +2,9 @@
    background-color: #b0a0a0;
 }
 
-.chart-wrapper {
-  width: 1200px;
-  overflow-x: scroll;
-}
 
 .chart-wrapper-scroll {
-  width: 1200px;
+  width: 100%;
   position: relative;
 }
 
@@ -19,6 +15,6 @@
   pointer-events: none;
 }
 
-#myChart {
+#plotter {
    width: 1200px;
 }

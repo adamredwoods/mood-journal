@@ -4,7 +4,7 @@ questions = {
         "Unhappy", "Sad", "Angry", "Frustrated", "Could be better", "Content", "Happy"
     ],
     "feeling_color": [
-        "#a0b0f0", "#b0b0f0", "#c0b0f0", "#c0c0f0", "#d0b0c0", "#e0e0c0", "#f0f090"
+        "#a0b0f0", "#8080f0", "#f08080", "#f0c0c0", "#f0f0f0", "#e0e0c0", "#f0f090"
     ],
     "trigger": {
         "Happy": [

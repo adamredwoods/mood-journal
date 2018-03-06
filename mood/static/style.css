@@ -17,7 +17,7 @@ body {
 
 nav {
    font-size: 1.4rem;
-   padding: 2.0rem;
+   padding: 1.0rem;
    color: #fff;
    background-color: #484042;
    margin-bottom: 2rem;
@@ -26,7 +26,6 @@ nav {
 nav a{
    color: #fff;
    text-decoration: none;
-
    line-height: 4rem;
 }
 

@@ -2,29 +2,38 @@
 
 {% block content %}
 
-
-  <h1>Sign Up</h1>
+   <div class="pure-g">
+      <div class="pure-u-1-5"></div>
+      <div class="pure-u-3-5">
+         <h1>Sign Up</h1>
+      </div>
+   </div>
 
   <div class="pure-g">
      <div class="pure-u-1-5"></div>
-     <form method="post" action="/signup" class="pure-form pure-u-3-5">
+     <form method="post" action="/signup/" class="pure-form pure-u-3-5">
 
         {% csrf_token %}
         <div class="">
            <div class="spacer-bottom">
              <label>Username:</label>
-             <input type="text" name="username" class="">
+             <input type="text" name="username" class="" value={{username}}>
           </div>
           <div class="spacer-bottom">
              <label>First name:</label>
-             <input type="text" name="firstname" class="">
+             <input type="text" name="firstname" class="" value={{firstname}}>
           </div>
           <div class="spacer-bottom">
              <label>Email:</label>
-             <input type="text" name="email" class="">
+             <input type="text" name="email" class="" value={{email}}>
           </div>
-          <label>Password:</label>
-          <input type="password" name="password" class="">
+          <div class="spacer"></div>
+          <div class="spacer-bottom">
+             <label>Password:</label>
+             <input type="password" name="password" class="">
+          </div>
+          <label>Password Verify:</label>
+          <input type="password" name="password2" class="">
 
           <div class="form-group">
              <br><br>

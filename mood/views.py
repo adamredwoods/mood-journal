@@ -80,7 +80,12 @@ def timeline_data(request):
         feelings_json = serializers.serialize("json", feeling_set)
         return HttpResponse(feelings_json, content_type='application/json')
 
+def timeline_data_date(request, date):
+    if request.user and request.user.is_authenticated:
 
+        single_feeling = Feeling.objects.filter(user_id=request.user.id, date=date)
+        json = serializers.serialize("json", single_feeling)
+        return HttpResponse(json, content_type='application/json')
 
 def edit_all(request):
     if not request.user or not request.user.is_authenticated:

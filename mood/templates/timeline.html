@@ -73,10 +73,15 @@ function setupPlot(data) {
          y:[],
          type: 'scatter',
          marker: {"color": feelingColor[j], "size": 22},
-         mode: "markers"
+         mode: "markers",
+
       });
       trace_key[i] = j;
       j++;
+
+      //-- preset the traces with 0ms of data so they show on the Y axis
+      trace[trace_key[i]].x.push(0);
+      trace[trace_key[i]].y.push(i);
    });
 
    data.forEach(
@@ -93,6 +98,8 @@ function setupPlot(data) {
    var layout = {
       yaxis: {
          fixedrange: true,
+         autotick: true,
+         text: feelingList,
          range: [0,feelingList.length-1],
          tickfont: {
             font: {
@@ -155,6 +162,9 @@ function setupPlot(data) {
    PLOTTER.on('plotly_click', function(data){
       data.points.map(function(d){
          setTimelineData(d);
+         //console.log(d);
+         //Plotly.restyle('plotter', 'marker.size', 40);
+         //setAnimation("plotter", d.x, d.y);
       })
    });
 }
@@ -176,6 +186,11 @@ function setTimelineData(data) {
       document.getElementById("timeline-data-trigger").textContent = r[0].fields.trigger;
       document.getElementById("timeline-data-journal").textContent = r[0].fields.journal;
    });
+}
+
+function setAnimation(plotly) {
+   // Plotly.restyle('graph', 'marker.size', [size]);
+
 }
 
 //-- make our call to the server, then setup the plot

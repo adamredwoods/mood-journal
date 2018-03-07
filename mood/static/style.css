@@ -69,7 +69,7 @@ h1 {
 }
 
 
-.radio-button .radio-button2 {
+.radio-button, .radio-button2 {
    cursor: pointer;
 }
 /*.radio-button input:checked ~ .checkmark {

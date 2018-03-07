@@ -7,8 +7,12 @@
    <div class="pure-u-2-5">
       <h1>Edit</h1>
    </div>
-   <div class="pure-u-1-5 text-right">
-      <h1>&lt; 2018 &gt;</h1>
+   <div class="pure-u-1-5 text-right editall-nav">
+      <h1>
+         <a class="pure-button" id="editall-button-lt" href="/edit/{{nav_prev}}">&lt;</a>
+         <span id="editall-date-id">{{cur_date}}</span>
+         <a class="pure-button button-small" id="editall-button-gt" href="/edit/{{nav_next}}">&gt;</a>
+      </h1>
    </div>
 
 </div>
@@ -42,12 +46,20 @@
 </div>
 
 <script>
-let f = document.querySelectorAll(".clickset");
-f.forEach(function(i) {
-   // i.addEventListener("click", function(e){
-   //    this.querySelector()
-   // })
-})
+
+var monthArray = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var curDate = new Date;
+var curMonth = curDate.getMonth();
+var curYear = curDate.getFullYear();
+//
+// var dateId = document.getElementById("editall-date-id");
+// dateId.textContent = monthArray[curMonth]+" "+curYear;
+
+// var b1 = document.getElementById("editall-button-1");
+// var b2 = document.getElementById("editall-button-1");
+
+
+
 </script>
 
 {%endblock%}

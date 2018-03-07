@@ -14,7 +14,12 @@ from django.core import serializers
 # Create your views here.
 
 day_of_week = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+month_array = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 triggers_ordered = []
+
+def last_day_of_month(any_day):
+    next_month = any_day.replace(day=28) + datetime.timedelta(days=4)
+    return next_month - datetime.timedelta(days=next_month.day)
 
 ##align the array of trigger responses to the array of feelings
 ##doing this because django templating really doesn't do well with arrays in dicts
@@ -46,7 +51,7 @@ def create(request):
             time_s = datetime.datetime.strptime(time_input, '%Y-%m-%d')
             time_s = time_s.timestamp() * 1000
         else:
-            time_s = int(time.time() * 1000) ## time in seconds
+            time_s = int(time.time() * 1000) ## time in mseconds
 
         new_feeling = Feeling()
         new_feeling.trigger = request.POST["trigger"]
@@ -83,16 +88,43 @@ def timeline_data(request):
 def timeline_data_date(request, date):
     if request.user and request.user.is_authenticated:
 
-        single_feeling = Feeling.objects.filter(user_id=request.user.id, date=date)
-        json = serializers.serialize("json", single_feeling)
+        f = Feeling.objects.filter(user_id=request.user.id, date=date)
+        json = serializers.serialize("json", f)
         return HttpResponse(json, content_type='application/json')
 
-def edit_all(request):
+def edit_all(request, monthyear=""):
     if not request.user or not request.user.is_authenticated:
         print("not auth")
         return redirect("login")
 
-    feeling_set = Feeling.objects.filter(user_id=request.user.id)
+    dt = None
+    if (not monthyear):
+        dt = datetime.datetime.fromtimestamp(time.time()) ## time in seconds
+        monthyear = str(dt.month)+"-"+str(dt.year)
+
+    year = int(monthyear.split("-")[1])
+    month = int(monthyear.split("-")[0])
+
+    if (month>1):
+        prev_dt = datetime.datetime(year, month-1, 1)
+    else:
+        prev_dt = datetime.datetime(year-1, 12, 1)
+    if (month<12):
+        next_dt = datetime.datetime(year, month+1, 1)
+    else:
+        next_dt = datetime.datetime(year+1, 1, 1)
+
+    # print (datetime.datetime.fromtimestamp(time.time()))
+    # print (time.time()*1000)
+    # print (last_day_of_month(dt))
+    # print (time.mktime(dt.timetuple()))
+
+    ## convert string into millsecs epoch
+    startms = time.mktime(datetime.datetime(year, month, 1).timetuple())*1000
+    stopms = time.mktime(datetime.datetime(year, month, last_day_of_month(datetime.datetime(year, month, 1)).day ).timetuple())*1000+86399
+    print (startms, stopms)
+
+    feeling_set = Feeling.objects.filter(user_id=request.user.id, date__gte=int(startms), date__lte=int(stopms) )
     feeling_arr = []
 
     ## sort by day, and remove duplicates (get most recent)
@@ -101,4 +133,15 @@ def edit_all(request):
         f.date = datetime.date.fromtimestamp(f.date/1000.0)
         feeling_arr.append(f)
 
-    return render(request, "edit_all.html", { "feeling_data": feeling_arr, "questions": questions, "triggers_ordered" : triggers_ordered, } )
+    nav_prev = str(prev_dt.month)+"-"+str(prev_dt.year)
+    nav_next = str(next_dt.month)+"-"+str(next_dt.year)
+    cur_date = str(month_array[month-1])+" "+str(year)
+
+    return render(request, "edit_all.html", {
+        "feeling_data": feeling_arr,
+        "questions": questions,
+        "triggers_ordered" : triggers_ordered,
+        "nav_prev": nav_prev,
+        "nav_next": nav_next,
+        "cur_date": cur_date,
+    } )

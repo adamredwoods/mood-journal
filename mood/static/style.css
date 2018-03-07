@@ -156,6 +156,12 @@ h1 {
 
 }
 
+.editall-nav a {
+   font-size: 1rem;
+   color: #fff;
+   background-color: #807070;
+}
+
 .timeline-label {
    font-size: 1.3rem;
    color: #807070;

@@ -31,4 +31,5 @@ urlpatterns = [
     path('timeline/data/<int:date>/', views.timeline_data_date, name="timeline_data_date"),
     path('create/', views.create, name="create"),
     path('edit/', views.edit_all, name="edit"),
+    path('edit/<slug:monthyear>/', views.edit_all, name="editmonth"),
 ]

@@ -31,7 +31,7 @@
          </div>
       </div>
       <div class="pure-g">
-         <div class="pure-u-1">
+         <div class="pure-u-1 spacer-top">
             Journal entry: <span class="timeline-data" id="timeline-data-journal"></span>
          </div>
       </div>
@@ -82,6 +82,7 @@ function setupPlot(data) {
       //-- preset the traces with 0ms of data so they show on the Y axis
       trace[trace_key[i]].x.push(0);
       trace[trace_key[i]].y.push(i);
+      trace[trace_key[i]].name="";
    });
 
    data.forEach(
@@ -131,34 +132,18 @@ function setupPlot(data) {
          x: 00,
          y: 0,
          direction: 'right',
-         buttons: [{
-            label: '&lt;',
-            method: 'restyle',
-            args: ['line.color', 'red']
-         }, {
-            label: '&gt;',
-            method: 'restyle',
-            args: ['line.color', 'green']
-         }]
+
       }],
 
    }
 
-   // var trace1 = {
-   //    x: [],
-   //    y: [],
-   //    type: 'scatter',
-   //    marker: {"color": "#a0b0f0", "size": 22},
-   //    mode: "markers"
-   // }
-
-   //
    PLOTTER = document.getElementById("plotter");
    	Plotly.newPlot( PLOTTER, trace,
       layout,
       {displayModeBar: false},
    );
 
+   //-- plotly doesn't seem to detect clicks on nothing
    PLOTTER.on('plotly_click', function(data){
       data.points.map(function(d){
          setTimelineData(d);
@@ -186,6 +171,13 @@ function setTimelineData(data) {
       document.getElementById("timeline-data-trigger").textContent = r[0].fields.trigger;
       document.getElementById("timeline-data-journal").textContent = r[0].fields.journal;
    });
+}
+
+function clearTimelineData() {
+   document.getElementById("timeline-data-date").textContent = "";
+   document.getElementById("timeline-data-feeling").textContent = "";
+   document.getElementById("timeline-data-trigger").textContent = "";
+   document.getElementById("timeline-data-journal").textContent = "";
 }
 
 function setAnimation(plotly) {

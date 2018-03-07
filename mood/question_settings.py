@@ -1,7 +1,7 @@
 
 questions = {
     "feeling": [
-        "Unhappy", "Sad", "Angry", "Frustrated", "Could be better", "Content", "Happy"
+        "Unhappy", "Sad", "Angry", "Frustrated", "Anxious", "Could be better", "Content", "Happy"
     ],
     "feeling_color": [
         "#a0b0f0", "#8080f0", "#f08080", "#f0c0c0", "#f0f0f0", "#e0e0c0", "#f0f090"

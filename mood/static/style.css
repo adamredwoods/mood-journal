@@ -136,8 +136,8 @@ h1 {
    -webkit-box-sizing: border-box;
    -moz-box-sizing: border-box;
    box-sizing: border-box;
-   max-width: 100%;
-   width: 90%;
+   max-width: 98%;
+   width: 98%;
 }
 
 .editall-form h3, h5 {
@@ -146,6 +146,14 @@ h1 {
 
 .editall-form h5 {
    color: #807070;
+}
+
+.editall-box {
+   display: inline-block;
+   border: 1px solid #807070;
+   width: 90%;
+   padding: 2px;
+
 }
 
 .timeline-label {

@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+GUEST_LOGIN_USERNAME = "me"
+GUEST_LOGIN_NUMBER = 123
 
 # Application definition
 

@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.conf import settings
 
 # Auth-related routes
 def signup(request):
@@ -35,9 +36,9 @@ def signup(request):
 
 def login(request, guest=0):
     if request.method == "GET":
-        if(guest!=123):
-            return render(request, "login.html")
-        user = User.objects.get(username="me")
+        if(guest!=settings.GUEST_LOGIN_NUMBER):
+            return render(request, "login.html", {"guest_number":str(settings.GUEST_LOGIN_NUMBER) })
+        user = User.objects.get(username=settings.GUEST_LOGIN_USERNAME)
         if (user):
             auth.login(request, user);
 
@@ -50,7 +51,7 @@ def login(request, guest=0):
             auth.login(request, user)
             return redirect("index")
         else:
-            return render(request, "./login.html",{"error": "Invalid credentials."})
+            return render(request, "./login.html",{"error": "Invalid credentials.", "guest_number":str(settings.GUEST_LOGIN_NUMBER) })
 
 def logout(request):
     auth.logout(request)

@@ -114,15 +114,11 @@ def edit_all(request, monthyear=""):
     else:
         next_dt = datetime.datetime(year+1, 1, 1)
 
-    # print (datetime.datetime.fromtimestamp(time.time()))
-    # print (time.time()*1000)
-    # print (last_day_of_month(dt))
-    # print (time.mktime(dt.timetuple()))
 
     ## convert string into millsecs epoch
     startms = time.mktime(datetime.datetime(year, month, 1).timetuple())*1000
     stopms = time.mktime(datetime.datetime(year, month, last_day_of_month(datetime.datetime(year, month, 1)).day ).timetuple())*1000+86399
-    print (startms, stopms)
+    #print (startms, stopms)
 
     feeling_set = Feeling.objects.filter(user_id=request.user.id, date__gte=int(startms), date__lte=int(stopms) )
     feeling_arr = []

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import dj-database-url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -82,15 +83,16 @@ WSGI_APPLICATION = 'moodjournal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-db = "127.0.0.1"
-if (not DEBUG): db = os.environ.get('DATABASE_URL', None)
+db = {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'moodjournal',
+    'HOST': '127.0.0.1',
+}
+
+if (not DEBUG): db = dj_database_url.parse(os.environ.get('DATABASE_URL', None), conn_max_age=600)
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'moodjournal',
-        'HOST': db,
-    }
+    'default': db
 }
 
 

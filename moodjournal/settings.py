@@ -15,15 +15,18 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'q*bk4+^!wiqms3rmv)s2@enino9x*%ejuc=v&=^0-8(6pgu&29'
+if (not DEBUG): SECRET_KEY = os.environ.get('SECRET_KEY', None)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+
 
 ALLOWED_HOSTS = []
 
@@ -77,10 +80,14 @@ WSGI_APPLICATION = 'moodjournal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+db = "127.0.0.1"
+if (not DEBUG): db = os.environ.get('DATABASE_URL', None)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'moodjournal',
+        'HOST': db,
     }
 }
 

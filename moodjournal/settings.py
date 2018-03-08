@@ -26,10 +26,10 @@ DEBUG = False
 SECRET_KEY = 'q*bk4+^!wiqms3rmv)s2@enino9x*%ejuc=v&=^0-8(6pgu&29'
 if (not DEBUG): SECRET_KEY = os.environ.get('SECRET_KEY', None)
 
-SECURE_PROXY_SSL_HEADER = True
-SECURE_SSL_REDIRECT  = True
-SESSION_COOKIE_SECURE = True 
-CSRF_COOKIE_SECURE = True
+# SECURE_PROXY_SSL_HEADER = True
+# SECURE_SSL_REDIRECT  = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 
 ALLOWED_HOSTS = ['moodyjournal.herokuapp.com']

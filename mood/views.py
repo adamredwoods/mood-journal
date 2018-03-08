@@ -25,7 +25,7 @@ def last_day_of_month(any_day):
 ##doing this because django templating really doesn't do well with arrays in dicts
 for i,f in enumerate(questions['feeling']):
     triggers_ordered.append(questions['trigger'].get(f))
-print(triggers_ordered)
+
 
 def index(request):
     if not request.user or not request.user.is_authenticated:

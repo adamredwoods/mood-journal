@@ -29,7 +29,7 @@ if (not DEBUG): SECRET_KEY = os.environ.get('SECRET_KEY', None)
 
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['moodyjournal.herokuapp.com']
 
 GUEST_LOGIN_USERNAME = "me"
 GUEST_LOGIN_NUMBER = 123

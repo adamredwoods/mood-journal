@@ -14,3 +14,4 @@ verify_ssl = true
 django = "*"
 "psycopg2" = "*"
 dj-database-url = "*"
+gunicorn = "*"

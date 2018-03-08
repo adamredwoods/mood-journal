@@ -16,6 +16,9 @@ questions = {
         "Could be better": [
             "Specific event", "Accomplishment", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
         ],
+        "Anxious": [
+            "Specific event", "Accomplishment", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
+        ],
         "Unhappy": [
             "Specific event", "Life imbalance", "Missed goal", "Job", "Food", "Love", "Family", "Money", "Friends", "Out of my control"
         ],

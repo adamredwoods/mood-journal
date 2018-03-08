@@ -1,8 +1,14 @@
 [requires]
+
 python_full_version = "3.6.4"
 
 
-[dev-packages]
+[[source]]
+
+url = 'https://pypi.python.org/simple'
+verify_ssl = true
+
+
+[packages]
+
 django = "*"
-whitenoise = "*"
-gunicorn = "*"

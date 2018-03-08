@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('login/', mood.auth.login, name="login"),
-    path('login/<int:guest>/', mood.auth.login, name="login"),
+    path('login/<int:guest>/', mood.auth.login, name="login_guest"),
     path('logout/', mood.auth.logout, name="logout"),
 
     path('signup/', mood.auth.signup, name="signup"),

@@ -43,6 +43,8 @@ def login(request, guest=0):
             auth.login(request, user);
 
             return redirect("index")
+        else:
+            return render(request, "./login.html",{"error": "Guest account error.", "guest_number":str(settings.GUEST_LOGIN_NUMBER) })
     elif request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]

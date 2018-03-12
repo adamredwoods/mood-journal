@@ -1,0 +1,42 @@
+<div class="modal-areyousure">
+   <div class="modal-box">
+      <div id="modal-message"></div>
+      <h3>Are you sure?</h3>
+      <div>
+         <button class="pure-button button-primary" id="modal-button-yes">Yes</button>
+         <button class="pure-button button-primary" id="modal-button-no">No</button>
+      </div>
+   </div>
+
+</div>
+
+<script>
+var startModalAreYouSure;
+
+function initModal() {
+   var modal = document.getElementsByClassName("modal-areyousure")[0];
+   var modalBox = document.getElementsByClassName("modal-box")[0];
+   var buttonYes = document.getElementById("modal-button-yes");
+   var buttonNo = document.getElementById("modal-button-no");
+
+   var callback2 = function(res) {};
+
+   startModalAreYouSure = function(msg, callback) {
+      document.getElementById("modal-message").textContent = msg;
+      modal.style.display="block";
+      callback2 = callback;
+   }
+
+   function exitModal(res, e) {
+      modal.style.display="none";
+      callback2(res);
+   }
+
+   modal.addEventListener("click",exitModal.bind(this, false));
+   buttonNo.addEventListener("click",exitModal.bind(this, false));
+   buttonYes.addEventListener("click",exitModal.bind(this, true));
+   modalBox.addEventListener("click",function(e){e.stopPropagation();});
+}
+
+initModal();
+</script>

@@ -170,3 +170,24 @@ h1 {
 .timeline-data {
    color: #f0f0f0;
 }
+
+.modal-areyousure {
+   position: fixed;
+   z-index: 999;
+   top: 0;
+   width: 0px;
+   width: 100%;
+   height: 100%;
+   margin: 0 auto;
+   background-color: rgba(0,0,0,0.5);
+   overflow: hidden;
+   display: none;
+}
+
+.modal-box {
+   background-color: #605050;
+   width: 20rem;
+   margin: 20% auto;
+   text-align: center;
+   padding: 1rem;
+}

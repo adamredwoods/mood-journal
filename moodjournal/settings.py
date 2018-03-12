@@ -17,7 +17,7 @@ import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -32,7 +32,7 @@ if (not DEBUG): SECRET_KEY = os.environ.get('SECRET_KEY', None)
 # CSRF_COOKIE_SECURE = True
 
 
-ALLOWED_HOSTS = ['moodyjournal.herokuapp.com']
+ALLOWED_HOSTS = (['moodyjournal.herokuapp.com'] if (DEBUG==False) else ['localhost'])
 
 GUEST_LOGIN_USERNAME = "me"
 GUEST_LOGIN_NUMBER = 123

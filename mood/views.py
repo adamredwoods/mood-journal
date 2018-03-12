@@ -92,6 +92,20 @@ def timeline_data_date(request, date):
         json = serializers.serialize("json", f)
         return HttpResponse(json, content_type='application/json')
 
+def delete_feeling(request):
+    if not request.user or not request.user.is_authenticated:
+        print("not auth")
+        return redirect("login")
+    if (request.method != "POST"):
+        return redirect("/edit/")
+    
+    id = request.POST["id"]
+    f = Feeling.objects.get(id=int(id))
+    if (not f):
+        return HttpResponse("Id not found.")
+    res = f.delete()
+    return HttpResponse("delete")
+
 def edit_all(request, monthyear=""):
     if not request.user or not request.user.is_authenticated:
         print("not auth")

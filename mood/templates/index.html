@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {%block content%}
 
-<div class="pure-g">
+<div class="pure-g mood-entry">
    <div class="pure-u-1-5"></div>
    <div class="pure-u-3-5">
 
@@ -11,7 +11,7 @@
          </h3>
          {% csrf_token %}
          <div>
-            <h1 class="white">How do you feel today?</h1>
+            <h1 class="feeling-white">How do you feel today?</h1>
             <div class="radio-button-div">
                {% for q in questions.feeling %}
                <label class="radio-button">{{q}}
@@ -22,7 +22,7 @@
          </div>
          <div class="spacer"></div>
          <div>
-            <h1 class="white">What was the central cause for you being &quot;<span id="answer"></span>&quot;?</h1>
+            <h1 class="feeling-white">What was the central cause for you being &quot;<span id="answer"></span>&quot;?</h1>
             <div class="radio-button-div">
                {% for key in triggers_ordered %}
                   <div id="feeling{{forloop.counter0}}" class="radio-key-div-hide">
@@ -39,9 +39,9 @@
          <div class="spacer"></div>
          <div class="feeling-journal pure-group pure-g">
             <div class="pure-u-1">
-               <h1 class="white">Other thoughts:</h1>
+               <h1 class="feeling-white">Other thoughts:</h1>
             </div>
-            <textarea class="pure-input" name="journal" rows="3" cols="90"></textarea>
+            <textarea class="pure-input feeling-journal-input" name="journal" rows="3" cols="90"></textarea>
          </div>
          <input type="submit" value="Submit" class="feeling-submit pure-button pure-button-primary spacer-top">
 
@@ -50,8 +50,7 @@
 
 </div>
 <script>
-let c = document.querySelectorAll("label.radio-button");
-let answer = document.querySelector("#answer");
+
 
 //-- Oh django! you my life so complicated!
 let feelingList = [
@@ -59,44 +58,76 @@ let feelingList = [
    "{{i}}",
 {% endfor %}
 ];
+let bgColorList = [
+{% for i in questions.feeling_bgcolor %}"{{i}}",{% endfor %}
+];
+let fgColorList = [
+{% for i in questions.feeling_fgcolor %}"{{i}}",{% endfor %}
+];
 
-//-- add clicks and functionality to feeling tags
-c.forEach(function(e){
-   e.addEventListener("click",function(e){
-      //clear then add
-      c.forEach(function(f){f.className="radio-button"});
-      this.className += " radio-button-select";
-      answer.textContent = e.target.value;
+function changeElementColors(index) {
+	let bodyElement = document.querySelector("body");
+	let rb = document.querySelectorAll(".radio-button, .radio-button2");
+	let wh = document.querySelectorAll(".feeling-white, .radio-button-select");
 
-      //hide all, then show selected triggers
-      let hidelist = document.querySelectorAll(".radio-key-div");
-      hidelist.forEach(function(f){f.className="radio-key-div-hide"});
+	let bgColor = bgColorList[index];
+	let fgColor = fgColorList[index];
 
-      let dd = feelingList.indexOf(e.target.value);
-      if (dd>=0) {
-         let d = document.querySelector("#feeling"+dd);
+	bodyElement.style.backgroundColor = bgColor;
+	bodyElement.style.color = "#505050";
+	rb.forEach(function(r) {r.style.color="#505050"});
+	wh.forEach(function(r) {r.style.color=fgColor});
 
-         d.className = "radio-key-div";
-      }
+}
 
-      //show submit button
-      let s = document.querySelector(".feeling-submit");
-      s.style.visibility = "visible";
-      let s2 = document.querySelector(".feeling-journal");
-      s2.style.visibility = "visible";
-   })
-})
+function init() {
+	let c = document.querySelectorAll("label.radio-button");
+	let answer = document.querySelector("#answer");
+	var currentIndex=0;
 
-//add clicks to triggers
-let c2 = document.querySelectorAll("label.radio-button2");
-c2.forEach(function(e){
-   e.addEventListener("click",function(e){
-      //clear then add
-      c2.forEach(function(f){f.className="radio-button2"});
-      this.className += " radio-button-select";
-   })
-})
+	//-- add clicks and functionality to feeling tags
+	c.forEach(function(e){
+	   e.addEventListener("click",function(e){
+	      //clear then add
+	      c.forEach(function(f){f.className="radio-button"});
+	      this.className += " radio-button-select";
+	      answer.textContent = e.target.value;
 
+	      //hide all, then show selected triggers
+	      let hidelist = document.querySelectorAll(".radio-key-div");
+	      hidelist.forEach(function(f){f.className="radio-key-div-hide"});
+
+	      let dd = feelingList.indexOf(e.target.value);
+			currentIndex=dd;
+	      if (dd>=0) {
+	         let d = document.querySelector("#feeling"+dd);
+
+	         d.className = "radio-key-div";
+				changeElementColors(dd);
+	      }
+
+	      //show submit button
+	      let s = document.querySelector(".feeling-submit");
+	      s.style.visibility = "visible";
+	      let s2 = document.querySelector(".feeling-journal");
+	      s2.style.visibility = "visible";
+	   })
+	})
+
+	//add clicks to triggers
+	let c2 = document.querySelectorAll("label.radio-button2");
+	c2.forEach(function(e){
+	   e.addEventListener("click",function(e){
+	      //clear then add
+	      c2.forEach(function(f){f.className="radio-button2"});
+	      this.className += " radio-button-select";
+
+			changeElementColors(currentIndex);
+	   })
+	})
+}
+
+init();
 
 </script>
 {%endblock%}

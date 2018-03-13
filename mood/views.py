@@ -74,7 +74,7 @@ def timeline(request):
     #feelings_json = json.dumps(feeling_set, cls=DjangoJSONEncoder)
     feelings_json = serializers.serialize("json", feeling_set)
 
-    return render(request, "timeline.html", { "feeling_axis": questions['feeling'], "feeling_color": questions['feeling_color']} )
+    return render(request, "timeline.html", { "feeling_axis": questions['feeling'], "feeling_color": questions['feeling_bgcolor']} )
 
 ## use this to send the timeline data to the client
 ## TODO: get data for only the current year
@@ -98,7 +98,7 @@ def delete_feeling(request):
         return redirect("login")
     if (request.method != "POST"):
         return redirect("/edit/")
-    
+
     id = request.POST["id"]
     f = Feeling.objects.get(id=int(id))
     if (not f):

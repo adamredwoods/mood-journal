@@ -4,16 +4,14 @@ body {
    background-color: #585052;
    font-family: 'Libre Franklin:200,400,700', sans-serif;
    font-weight: 200;
-
+	transition: background-color 1s;
 }
 
 .light {
    color: #aaa;
 }
 
-.white {
-   color: #fff;
-}
+
 
 nav {
    font-size: 1.4rem;
@@ -68,6 +66,10 @@ h1 {
    font-size: 3.0rem;
 }
 
+.feeling-white {
+   color: #fff;
+	font-weight: 700;
+}
 
 .radio-button, .radio-button2 {
    cursor: pointer;
@@ -87,6 +89,7 @@ h1 {
 .radio-button-select {
    color: white;
    font-size: 1.3rem;
+	font-weight: 500;
 }
 
 .radio-button-div {
@@ -110,7 +113,7 @@ h1 {
 }
 
 .feeling-journal textarea {
-   background-color: #706060;
+   background-color: rgba(0,0,0,0);
    -webkit-box-sizing: border-box;
    -moz-box-sizing: border-box;
    box-sizing: border-box;
@@ -119,7 +122,7 @@ h1 {
 }
 
 .feeling-date {
-   background-color: #706060;
+   background-color: rgba(0,0,0,0);
    border: 0;
 }
 

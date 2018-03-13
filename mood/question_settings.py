@@ -3,8 +3,11 @@ questions = {
     "feeling": [
         "Unhappy", "Sad", "Angry", "Frustrated", "Anxious", "Could be better", "Content", "Happy"
     ],
-    "feeling_color": [
-        "#a0b0f0", "#8080f0", "#f08080", "#f0c0c0", "#f0e090", "#f0f0f0", "#e0e0c0", "#f0f090"
+    "feeling_bgcolor": [
+        "#a0b0f0", "#5080f0", "#f08080", "#c0f0c0", "#f0e090", "#f0f0f0", "#f0c0c0", "#f0f080"
+    ],
+	"feeling_fgcolor": [
+        "#fff", "#fff", "#fff", "#202020", "#202020", "#202020", "#fff", "#202020"
     ],
     "trigger": {
         "Happy": [

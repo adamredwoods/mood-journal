@@ -1,7 +1,7 @@
 This is a Python + Django app to log a person's mood from day-to-day
 
 ## Technical Requirements
-* Use Python/Django
+* Use Python/Django with a database backend 
 
 ## Pictures / Stage Progress  
 
@@ -12,6 +12,7 @@ This is a Python + Django app to log a person's mood from day-to-day
 ## Libraries used  
 
 * Django
+* PostreSQL
 * Plotly
 * Whitenoise, Gunicorn, Dj-Database-Url for Heroku
 
